@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FilmController extends Controller
 {
@@ -13,8 +14,26 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films=\App\Film::all();
-        return view('films');
+        $films=DB::table('films')
+                ->join('countries', 'films.country_id', '=', 'countries.id')
+                ->select('films.id as id', 'films.name as name', 'films.description as description', 'films.ticket_price as ticket_price', 'films.release_date as release_date', 'countries.name as country_name')
+                ->get();
+        return view('films', compact('films'));
+        //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $films=DB::table('films')
+                ->join('countries', 'films.country_id', '=', 'countries.id')
+                ->select('films.id as id', 'films.name as name', 'films.description as description', 'films.ticket_price as ticket_price', 'films.release_date as release_date', 'countries.name as country_name')
+                ->get();
+        return view('list', compact('films'));
         //
     }
 
@@ -56,7 +75,7 @@ class FilmController extends Controller
         }
         $film->save();
         
-        return redirect('films')->with('success', 'Film has been added');    }
+        return redirect('films/list')->with('success', 'Film has been added');    }
 
     /**
      * Display the specified resource.
