@@ -21,56 +21,55 @@
           <form method="post" action="{{url('films')}}" enctype="multipart/form-data">
             @csrf
             <div class="row">
-              <div class="col-md-4"></div>
-              <div class="form-group col-md-4">
-                <label for="Name">Name:</label>
-                <input type="text" class="form-control" name="name">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
-                  <label for="Email">Email:</label>
-                  <input type="text" class="form-control" name="email">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" name="name">
                 </div>
-              </div>
+            </div>
             <div class="row">
-              <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
-                  <label for="Number">Phone Number:</label>
-                  <input type="text" class="form-control" name="number">
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" name="description">
                 </div>
-              </div>
-            <div class="row">
-              <div class="col-md-4"></div>
-              <div class="form-group col-md-4">
-                <input type="file" name="filename">    
-             </div>
             </div>
             <div class="row">
-              <div class="col-md-4"></div>
-              <div class="form-group col-md-4">
-                <strong>Date : </strong>  
-                <input class="date form-control"  type="text" id="datepicker" name="date">   
-             </div>
-            </div>
-             <div class="row">
-              <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
-                    <lable>Passport Office</lable>
-                    <select name="office">
-                      <option value="Mumbai">Mumbai</option>
-                      <option value="Chennai">Chennai</option>
-                      <option value="Delhi">Delhi</option>  
-                      <option value="Bangalore">Bangalore</option>  
+                    <label for="ticket_price">Ticket price:</label>
+                    <input type="text" class="form-control" name="ticket_price">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <input type="file" name="photo">    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <strong>Release date : </strong>  
+                    <input class="date form-control"  type="text" id="datepicker" name="release_date">   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                <strong>Country : </strong>  
+                    <select name="country_id" id="country_id" class="form-control">
+                        @foreach ($countries as $country => $value)
+                        <option value="{{ $country }}"> {{ $value }}</option>   
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="row">
-              <div class="col-md-4"></div>
-              <div class="form-group col-md-4" style="margin-top:60px">
-                <button type="submit" class="btn btn-success">Submit</button>
-              </div>
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4" style="margin-top:60px">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
             </div>
           </form>
         </div>

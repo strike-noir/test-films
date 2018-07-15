@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect()->route('films');
+    return redirect()->route('films.index');
 });
 
 Auth::routes();

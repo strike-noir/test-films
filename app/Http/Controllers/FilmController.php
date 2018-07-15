@@ -13,6 +13,7 @@ class FilmController extends Controller
      */
     public function index()
     {
+        $films=\App\Film::all();
         return view('films');
         //
     }
@@ -24,7 +25,8 @@ class FilmController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $countries = \App\Country::pluck('name', 'id')->toArray();
+        return view('create', compact('countries'));
         //
     }
 
@@ -37,7 +39,24 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        $film= new \App\Film;
+        $film->name=$request->get('name');
+        $film->description=$request->get('description');
+        $film->ticket_price=$request->get('ticket_price');
+        $date=date_create($request->get('release_date'));
+        // $format = date_format($date,"Y-m-d");
+        $film->release_date = date_format($date,"Y-m-d");
+        $film->country_id = $request->get('country_id');
+        if($request->hasfile('photo'))
+        {
+            $file = $request->file('photo');
+            $name=time().$file->getClientOriginalName();
+            $file->move(public_path().'/storage/images/', $name);
+            $film->photo=$name;
+        }
+        $film->save();
+        
+        return redirect('films')->with('success', 'Film has been added');    }
 
     /**
      * Display the specified resource.

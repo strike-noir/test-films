@@ -20,7 +20,7 @@ class CreateFilmsTable extends Migration
             $table->date('release_date');
             $table->enum('rating', ['1', '2', '3', '4', '5']);
             $table->integer('ticket_price');
-            $table->binary('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->integer('country_id')->unsigned();
             $table->foreign('country_id')->references('id')->on('countries');
