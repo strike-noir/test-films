@@ -18,40 +18,41 @@
     <body>
         <div class="container">
           <h2>Films</h2><br/>
-          <form method="post" action="{{url('films')}}" enctype="multipart/form-data">
+          <form method="post" action="{{action('FilmController@update', $id)}}" enctype="multipart/form-data">
             @csrf
+            <input name="_method" type="hidden" value="PATCH">
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" value="{{$film->name}}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
                     <label for="description">Description:</label>
-                    <input type="text" class="form-control" name="description">
+                    <input type="text" class="form-control" name="description" value="{{$film->description}}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
                     <label for="ticket_price">Ticket price:</label>
-                    <input type="text" class="form-control" name="ticket_price">
+                    <input type="text" class="form-control" name="ticket_price" value="{{$film->ticket_price}}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
-                    <input type="file" name="photo">    
+                    <input type="file" name="photo">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="form-group col-md-4">
                     <strong>Release date : </strong>  
-                    <input class="date form-control"  type="text" id="datepicker" name="release_date">   
+                    <input class="date form-control"  type="text" id="datepicker" name="release_date" value="{{$film->release_date}}">
                 </div>
             </div>
             <div class="row">
@@ -60,7 +61,7 @@
                 <strong>Country : </strong>  
                     <select name="country_id" id="country_id" class="form-control">
                         @foreach ($countries as $country => $value)
-                        <option value="{{ $country }}"> {{ $value }}</option>   
+                        <option value="{{ $country }}" @if($film->country_id==$country) selected @endif> {{ $value }}</option>   
                         @endforeach
                     </select>
                 </div>

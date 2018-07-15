@@ -75,7 +75,8 @@ class FilmController extends Controller
         }
         $film->save();
         
-        return redirect('films/list')->with('success', 'Film has been added');    }
+        return redirect('films/list')->with('success', 'Film has been added');
+    }
 
     /**
      * Display the specified resource.
@@ -97,6 +98,9 @@ class FilmController extends Controller
     public function edit($id)
     {
         //
+        $film = \App\Film::find($id);
+        $countries = \App\Country::pluck('name', 'id')->toArray();
+        return view('edit',compact('film','countries','id'));
     }
 
     /**
@@ -109,6 +113,23 @@ class FilmController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $film= \App\Film::find($id);
+        $film->name=$request->get('name');
+        $film->description=$request->get('description');
+        $film->ticket_price=$request->get('ticket_price');
+        $date=date_create($request->get('release_date'));
+        // $format = date_format($date,"Y-m-d");
+        $film->release_date = date_format($date,"Y-m-d");
+        $film->country_id = $request->get('country_id');
+        if($request->hasfile('photo'))
+        {
+            $file = $request->file('photo');
+            $name=time().$file->getClientOriginalName();
+            $file->move(public_path().'/storage/images/', $name);
+            $film->photo=$name;
+        }
+        $film->save();
+        return redirect('films/list')->with('success', 'Film has been updated');
     }
 
     /**
