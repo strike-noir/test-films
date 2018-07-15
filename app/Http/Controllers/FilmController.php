@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\FilmResource;
 
 class FilmController extends Controller
 {
@@ -87,6 +88,7 @@ class FilmController extends Controller
     public function show($id)
     {
         //
+        return new FilmResource(\App\Film::find($id));
     }
 
     /**
@@ -141,5 +143,8 @@ class FilmController extends Controller
     public function destroy($id)
     {
         //
+        $film = \App\Film::find($id);
+        $film->delete();
+        return redirect('films/list')->with('success','Film has been deleted');
     }
 }

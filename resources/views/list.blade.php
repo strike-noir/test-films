@@ -23,6 +23,7 @@
                     <p>{{ \Session::get('success') }}</p>
                 </div><br />
             @endif
+            <a href="{{action('FilmController@create')}}" class="btn btn-default">Create</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
